@@ -15,7 +15,7 @@ function App() {
   const findrandom = async (data) => {
     const { link } = data;
     try {
-      const da = await fetch("http://localhost:5000/", {
+      const da = await fetch("https://comment-picker-eight.vercel.app/", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
