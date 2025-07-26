@@ -3,12 +3,20 @@ import cors from 'cors'
 import axios from 'axios'
 import * as cheerio from 'cheerio'
 import dotenv from 'dotenv';
+import cors from 'cors';
+
+
+
+
 dotenv.config();
 
 const app = express()
 const PORT = 5000
 const key = process.env.YOUTUBE_API_KEY;
-app.use(cors())
+
+app.use(cors({
+  origin: 'https://comment-picker-frontend.vercel.app',
+}));
 app.use(express.json()) 
 
 function getVideoId(url) {
