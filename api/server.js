@@ -3,7 +3,6 @@ import cors from 'cors'
 import axios from 'axios'
 import * as cheerio from 'cheerio'
 import dotenv from 'dotenv';
-import cors from 'cors';
 
 
 
@@ -11,11 +10,15 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express()
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 const key = process.env.YOUTUBE_API_KEY;
 
+// CORS configuration for deployed environment
 app.use(cors({
-  origin: 'https://comment-picker-frontend.vercel.app',
+  origin: ['https://comment-picker-frontend.vercel.app', 'http://localhost:5173'],
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json()) 
 
@@ -62,5 +65,9 @@ app.post('/', async (req, res) => {
     console.error('Error fetching comments:', err.message);
     res.status(500).json({ error: 'Failed to fetch comments' });
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
